@@ -15,9 +15,11 @@
     },
     "autoload": {
         "psr-4": {
-            "LiveBlog\\": "src/",
-            "App\\": "src/app/"
-        }
+            "LiveBlog\\": "src/"
+        },
+        "exclude-from-classmap": [
+            "src/app/"
+        ]
     },
     "extra": {
         "laravel": {
