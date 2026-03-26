@@ -1,5 +1,5 @@
 {
-    "name": "liveblog/liveblog",
+    "name": "warmar/laravel-blog",
     "description": "A multilingual structured blog/news plugin for Laravel + Livewire with JSON storage and custom rich text editor",
     "type": "library",
     "license": "MIT",
