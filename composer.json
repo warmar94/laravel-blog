@@ -1,0 +1,31 @@
+{
+    "name": "liveblog/liveblog",
+    "description": "A multilingual structured blog/news plugin for Laravel + Livewire with JSON storage and custom rich text editor",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "LiveBlog Contributors"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "illuminate/support": "^10.0|^11.0|^12.0",
+        "livewire/livewire": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "LiveBlog\\": "src/",
+            "App\\": "src/app/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LiveBlog\\LiveBlogServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
