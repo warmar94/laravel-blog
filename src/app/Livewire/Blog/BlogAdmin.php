@@ -6,7 +6,9 @@ use App\Models\Article;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Str;
+use Livewire\Attributes\Layout;
 
+#[Layout('layouts.blog.blog')]
 class BlogAdmin extends Component
 {
     use WithPagination;
@@ -110,6 +112,10 @@ class BlogAdmin extends Component
 
         return view('liveblog::livewire.blog.blog-admin', [
             'articles' => $articles,
+        ])->layoutData([
+            'title'       => 'Blog Admin',
+            'description' => '',
+            'keywords'    => '',
         ]);
     }
 

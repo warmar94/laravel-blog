@@ -5,7 +5,9 @@ namespace App\Livewire\Blog;
 use App\Models\Article;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\Attributes\Layout;
 
+#[Layout('layouts.blog.blog')]
 class BlogHome extends Component
 {
     use WithPagination;

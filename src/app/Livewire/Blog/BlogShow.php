@@ -5,7 +5,9 @@ namespace App\Livewire\Blog;
 use App\Models\Article;
 use App\Models\ArticleComment;
 use Livewire\Component;
+use Livewire\Attributes\Layout;
 
+#[Layout('layouts.blog.blog')]
 class BlogShow extends Component
 {
     public Article $article;

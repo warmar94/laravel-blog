@@ -13,46 +13,18 @@ class InstallBlogCommand extends Command
     {
         $this->info('📦 Installing LiveBlog...');
 
-        // Ask for frontend style
-        $style = $this->choice(
-            'Which frontend style do you prefer?',
-            ['tailwind', 'css'],
-            0
-        );
-
-        // Ask for comments feature
         $comments = $this->confirm('Do you want to enable comments?', true);
 
-        // Publish config
-        $this->call('vendor:publish', [
-            '--tag' => 'liveblog-config',
-            '--force' => true,
-        ]);
+        $this->call('vendor:publish', ['--tag' => 'liveblog-config', '--force' => true]);
 
-        // Update config with user choices
         $configPath = config_path('liveblog.php');
         $config = file_get_contents($configPath);
-        $config = str_replace("'style' => 'tailwind'", "'style' => '{$style}'", $config);
         $config = str_replace("'comments' => true", "'comments' => " . ($comments ? 'true' : 'false'), $config);
         file_put_contents($configPath, $config);
 
-        // Publish migrations
-        $this->call('vendor:publish', [
-            '--tag' => 'liveblog-migrations',
-            '--force' => true,
-        ]);
-
-        // Publish views
-        $this->call('vendor:publish', [
-            '--tag' => 'liveblog-views',
-            '--force' => true,
-        ]);
-
-        // Publish app files
-        $this->call('vendor:publish', [
-            '--tag' => 'liveblog-app',
-            '--force' => true,
-        ]);
+        $this->call('vendor:publish', ['--tag' => 'liveblog-migrations', '--force' => true]);
+        $this->call('vendor:publish', ['--tag' => 'liveblog-views', '--force' => true]);
+        $this->call('vendor:publish', ['--tag' => 'liveblog-app', '--force' => true]);
 
         $this->newLine();
         $this->info('✅ LiveBlog installed successfully!');
