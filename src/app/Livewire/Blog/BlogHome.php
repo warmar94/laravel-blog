@@ -30,13 +30,12 @@ class BlogHome extends Component
             })
             ->paginate(10);
 
-        return view('liveblog::livewire.blog.blog-home', [
+        return view('laravel-blog::livewire.blog.blog-home', [
             'articles' => $articles,
         ])->layoutData([
-            'title' => 'Blog',
+            'title'       => 'Blog',
             'description' => '',
-            'keywords' => '',
+            'keywords'    => '',
         ]);
     }
-
 }

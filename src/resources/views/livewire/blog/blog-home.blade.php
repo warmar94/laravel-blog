@@ -1,15 +1,15 @@
 <div class="min-h-screen bg-gradient-to-b from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-950">
     <div class="max-w-6xl mx-auto px-4 py-16">
         <div class="text-center mb-12">
-            <h1 class="text-5xl font-bold text-zinc-900 dark:text-white mb-4">{{ config('liveblog.site.hero_title', 'Our Blog') }}</h1>
-            <p class="text-xl text-zinc-600 dark:text-zinc-400">{{ config('liveblog.site.hero_description', 'Stay updated with our latest articles') }}</p>
+            <h1 class="text-5xl font-bold text-zinc-900 dark:text-white mb-4">{{ config('blog.site.hero_title', 'Our Blog') }}</h1>
+            <p class="text-xl text-zinc-600 dark:text-zinc-400">{{ config('blog.site.hero_description', 'Stay updated with our latest articles') }}</p>
         </div>
 
         <div class="mb-8">
-            <input 
-                type="text" 
-                wire:model.live.debounce.300ms="search" 
-                placeholder="Search articles..." 
+            <input
+                type="text"
+                wire:model.live.debounce.300ms="search"
+                placeholder="Search articles..."
                 class="w-full px-6 py-4 rounded-2xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-600"
             >
         </div>

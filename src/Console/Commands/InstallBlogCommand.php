@@ -1,33 +1,33 @@
 <?php
 
-namespace LiveBlog\Console\Commands;
+namespace LaravelBlog\Console\Commands;
 
 use Illuminate\Console\Command;
 
 class InstallBlogCommand extends Command
 {
     protected $signature = 'blog:install';
-    protected $description = 'Install LiveBlog package files';
+    protected $description = 'Install LaravelBlog package files';
 
     public function handle()
     {
-        $this->info('📦 Installing LiveBlog...');
+        $this->info('📦 Installing LaravelBlog...');
 
         $comments = $this->confirm('Do you want to enable comments?', true);
 
-        $this->call('vendor:publish', ['--tag' => 'liveblog-config', '--force' => true]);
+        $this->call('vendor:publish', ['--tag' => 'laravel-blog-config', '--force' => true]);
 
-        $configPath = config_path('liveblog.php');
+        $configPath = config_path('blog.php');
         $config = file_get_contents($configPath);
         $config = str_replace("'comments' => true", "'comments' => " . ($comments ? 'true' : 'false'), $config);
         file_put_contents($configPath, $config);
 
-        $this->call('vendor:publish', ['--tag' => 'liveblog-migrations', '--force' => true]);
-        $this->call('vendor:publish', ['--tag' => 'liveblog-views', '--force' => true]);
-        $this->call('vendor:publish', ['--tag' => 'liveblog-app', '--force' => true]);
+        $this->call('vendor:publish', ['--tag' => 'laravel-blog-migrations', '--force' => true]);
+        $this->call('vendor:publish', ['--tag' => 'laravel-blog-views', '--force' => true]);
+        $this->call('vendor:publish', ['--tag' => 'laravel-blog-app', '--force' => true]);
 
         $this->newLine();
-        $this->info('✅ LiveBlog installed successfully!');
+        $this->info('✅ LaravelBlog installed successfully!');
         $this->newLine();
         $this->warn('📝 Next steps:');
         $this->line('1. Run migrations: php artisan migrate');
@@ -37,7 +37,7 @@ class InstallBlogCommand extends Command
         $this->line("   Route::get('/blog/{slug}', \\App\\Livewire\\Blog\\BlogShow::class)->name('blog.show');");
         $this->line("   Route::get('/blog-admin', \\App\\Livewire\\Blog\\BlogAdmin::class)->name('blog.admin');");
         $this->newLine();
-        $this->line('3. Configure admin emails in config/liveblog.php');
+        $this->line('3. Configure admin emails in config/blog.php');
         $this->newLine();
 
         return 0;

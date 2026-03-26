@@ -1,6 +1,6 @@
 @php
     use App\Services\RichTextRenderer;
-    $isAdmin = auth()->check() && in_array(auth()->user()->email, config('liveblog.admin.emails', []));
+    $isAdmin = auth()->check() && in_array(auth()->user()->email, config('blog.admin.emails', []));
 @endphp
 
 <div class="min-h-screen bg-gradient-to-b from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-950" x-data="{ showDeleteConfirm: false, deleteCommentId: null }">
@@ -33,7 +33,7 @@
             </div>
         </article>
 
-        @if(config('liveblog.features.comments', true))
+        @if(config('blog.features.comments', true))
             <div class="bg-white dark:bg-zinc-800 rounded-3xl shadow-2xl p-12 border border-zinc-200 dark:border-zinc-700">
                 <h2 class="text-3xl font-bold text-zinc-900 dark:text-white mb-8">
                     Comments ({{ $article->comments->count() }})

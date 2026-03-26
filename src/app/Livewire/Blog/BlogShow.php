@@ -58,7 +58,7 @@ class BlogShow extends Component
     public function editComment($commentId)
     {
         $comment = ArticleComment::findOrFail($commentId);
-        
+
         if ($comment->user_id !== auth()->id()) {
             return;
         }
@@ -70,7 +70,7 @@ class BlogShow extends Component
     public function updateComment()
     {
         $comment = ArticleComment::findOrFail($this->editingCommentId);
-        
+
         if ($comment->user_id !== auth()->id()) {
             return;
         }
@@ -95,9 +95,9 @@ class BlogShow extends Component
     public function deleteComment($commentId)
     {
         $comment = ArticleComment::findOrFail($commentId);
-        
-        $isAdmin = in_array(auth()->user()->email, config('liveblog.admin.emails', []));
-        
+
+        $isAdmin = in_array(auth()->user()->email, config('blog.admin.emails', []));
+
         if ($comment->user_id !== auth()->id() && !$isAdmin) {
             return;
         }
@@ -108,8 +108,8 @@ class BlogShow extends Component
 
     public function deleteArticle()
     {
-        $isAdmin = in_array(auth()->user()->email, config('liveblog.admin.emails', []));
-        
+        $isAdmin = in_array(auth()->user()->email, config('blog.admin.emails', []));
+
         if (!$isAdmin) {
             return;
         }
@@ -120,11 +120,10 @@ class BlogShow extends Component
 
     public function render()
     {
-        return view('liveblog::livewire.blog.blog-show')->layoutData([
-            'title' => $this->article->metatitle,
+        return view('laravel-blog::livewire.blog.blog-show')->layoutData([
+            'title'       => $this->article->metatitle ?: $this->article->title,
             'description' => $this->article->metadesc,
-            'keywords' => $this->article->metakeywords,
+            'keywords'    => $this->article->metakeywords,
         ]);
     }
-
 }

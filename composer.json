@@ -1,11 +1,11 @@
 {
     "name": "warmar/laravel-blog",
-    "description": "A multilingual structured blog/news plugin for Laravel + Livewire with JSON storage and custom rich text editor",
+    "description": "A blog/news plugin for Laravel + Livewire",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "LiveBlog Contributors"
+            "name": "warmar"
         }
     ],
     "require": {
@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "LiveBlog\\": "src/"
+            "LaravelBlog\\": "src/"
         },
         "exclude-from-classmap": [
             "src/app/"
@@ -24,7 +24,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "LiveBlog\\LiveBlogServiceProvider"
+                "LaravelBlog\\LaravelBlogServiceProvider"
             ]
         }
     },

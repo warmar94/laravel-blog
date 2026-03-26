@@ -25,19 +25,16 @@ class BlogAdmin extends Component
     public $editorContent = '';
 
     protected $rules = [
-        'metatitle' => 'required|string|max:500',
-        'metadesc' => 'required|string|max:1000',
+        'metatitle'    => 'required|string|max:500',
+        'metadesc'     => 'required|string|max:1000',
         'metakeywords' => 'required|string|max:500',
-        'title' => 'required|string|max:255',
-        'article' => 'required|string',
+        'title'        => 'required|string|max:255',
+        'article'      => 'required|string',
     ];
 
     public function mount()
     {
-        $this->editorContent = json_encode([
-            'type' => 'doc',
-            'content' => []
-        ]);
+        $this->editorContent = json_encode(['type' => 'doc', 'content' => []]);
     }
 
     public function updatedTitle()
@@ -48,27 +45,24 @@ class BlogAdmin extends Component
     public function createNew()
     {
         $this->reset(['editingArticleId', 'metatitle', 'metadesc', 'metakeywords', 'title', 'slug', 'article', 'published_at']);
-        $this->editorContent = json_encode([
-            'type' => 'doc',
-            'content' => []
-        ]);
+        $this->editorContent = json_encode(['type' => 'doc', 'content' => []]);
         $this->showEditor = true;
     }
 
     public function editArticle($id)
     {
         $article = Article::findOrFail($id);
-        
+
         $this->editingArticleId = $article->id;
-        $this->metatitle = $article->metatitle;
-        $this->metadesc = $article->metadesc;
-        $this->metakeywords = $article->metakeywords;
-        $this->title = $article->title;
-        $this->slug = $article->slug;
-        $this->article = $article->article;
-        $this->published_at = $article->published_at?->format('Y-m-d\TH:i');
-        $this->editorContent = $article->article;
-        $this->showEditor = true;
+        $this->metatitle        = $article->metatitle;
+        $this->metadesc         = $article->metadesc;
+        $this->metakeywords     = $article->metakeywords;
+        $this->title            = $article->title;
+        $this->slug             = $article->slug;
+        $this->article          = $article->article;
+        $this->published_at     = $article->published_at?->format('Y-m-d\TH:i');
+        $this->editorContent    = $article->article;
+        $this->showEditor       = true;
     }
 
     public function saveArticle()
@@ -76,12 +70,12 @@ class BlogAdmin extends Component
         $this->validate();
 
         $data = [
-            'metatitle' => $this->metatitle,
-            'metadesc' => $this->metadesc,
+            'metatitle'    => $this->metatitle,
+            'metadesc'     => $this->metadesc,
             'metakeywords' => $this->metakeywords,
-            'title' => $this->title,
-            'slug' => $this->slug,
-            'article' => $this->article,
+            'title'        => $this->title,
+            'slug'         => $this->slug,
+            'article'      => $this->article,
             'published_at' => $this->published_at ? date('Y-m-d H:i:s', strtotime($this->published_at)) : null,
         ];
 
@@ -110,7 +104,7 @@ class BlogAdmin extends Component
     {
         $articles = Article::latest()->paginate(20);
 
-        return view('liveblog::livewire.blog.blog-admin', [
+        return view('laravel-blog::livewire.blog.blog-admin', [
             'articles' => $articles,
         ])->layoutData([
             'title'       => 'Blog Admin',
@@ -118,5 +112,4 @@ class BlogAdmin extends Component
             'keywords'    => '',
         ]);
     }
-
 }
