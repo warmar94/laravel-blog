@@ -1,19 +1,38 @@
 <?php
 
 return [
-    'site' => [
-        'title' => 'Blog',
-        'description' => 'Read our latest articles',
-        'keywords' => 'blog, news, articles',
-        'hero_title' => 'Our Blog',
-        'hero_description' => 'Stay updated with our latest articles',
-    ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Features
+    |--------------------------------------------------------------------------
+    */
     'features' => [
-        'comments' => true,
+        'comments'   => true,
+        'categories' => true,
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Pagination
+    |--------------------------------------------------------------------------
+    */
     'pagination' => [
         'per_page' => 10,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Categories
+    |--------------------------------------------------------------------------
+    | Define your categories here. These populate the dropdown in the admin
+    | editor and the filter sidebar on the blog home page.
+    */
+    'categories' => [
+        'Laravel',
+        // 'Tutorials',
+        // 'News',
+        // 'Releases',
+    ],
+
 ];
