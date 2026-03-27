@@ -13,13 +13,6 @@ return [
         'comments' => true,
     ],
 
-    'admin' => [
-        'emails' => [
-            // Add admin email addresses here
-            'admin@example.com',
-        ],
-    ],
-
     'pagination' => [
         'per_page' => 10,
     ],
