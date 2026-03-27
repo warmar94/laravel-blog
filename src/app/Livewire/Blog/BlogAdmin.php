@@ -109,7 +109,7 @@ class BlogAdmin extends Component
             'title'        => $this->title,
             'slug'         => $this->slug,
             'article'      => $this->article,
-            'category'      => $this->category ?: null,
+            'category'     => $this->category ?: null,
             'published_at' => $this->published_at
                 ? date('Y-m-d H:i:s', strtotime($this->published_at))
                 : null,
@@ -124,6 +124,16 @@ class BlogAdmin extends Component
         $this->showEditor = false;
         $this->resetArticleFields();
         $this->redirect(route('blog.admin'), navigate: true);
+    }
+
+    /**
+     * Called by JS save button — receives the parsed article JSON directly
+     * so editingArticleId is never lost between a set() round-trip and saveArticle().
+     */
+    public function saveWithContent(string $articleJson): void
+    {
+        $this->article = $articleJson;
+        $this->saveArticle();
     }
 
     public function deleteArticle(int $id): void

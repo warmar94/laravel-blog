@@ -984,7 +984,9 @@ window.blogEditor = function(initialContent) {
         saveToLivewire() {
             this.parseAndSync();
             const json = JSON.stringify(this.doc);
-            this.$wire.set('article', json).then(() => this.$wire.saveArticle());
+            // Pass JSON directly in one call — avoids editingArticleId being lost
+            // between a set() round-trip and a separate saveArticle() call
+            this.$wire.saveWithContent(json);
         },
 
         newParagraph() {
