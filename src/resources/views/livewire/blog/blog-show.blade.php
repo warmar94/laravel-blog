@@ -1,6 +1,8 @@
 @php
     use App\Services\Blog\RichTextRenderer;
-    $isAdmin = auth()->check() && in_array(auth()->user()->email, config('blog.admin.emails', []));
+    // Adjust roles to match User model — same roles as BlogShow::isAdmin()
+    $isAdmin = auth()->check()
+        && in_array(auth()->user()->role, ['superadmin', 'admin', 'moderator']);
 @endphp
 
 <div class="min-h-screen bg-white" x-data="{ showDeleteConfirm: false, deleteCommentId: null }">
@@ -18,7 +20,7 @@
             @auth
                 @if($isAdmin)
                     <div class="flex items-center gap-2">
-                        <a href="{{ route('blog.admin') }}"
+                        <a href="{{ route('admin.blog.admin') }}"
                            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-xs font-semibold transition">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>

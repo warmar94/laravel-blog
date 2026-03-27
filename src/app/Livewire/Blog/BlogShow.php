@@ -16,6 +16,20 @@ class BlogShow extends Component
     public $editingCommentId = null;
     public $editingCommentText = '';
 
+    /*
+    |--------------------------------------------------------------------------
+    | Admin check
+    |--------------------------------------------------------------------------
+    | Adjust the roles below to match your User model's role values.
+    | Any user whose role matches one of these is treated as an admin
+    | and can delete any comment or article from the public blog view.
+    */
+    private function isAdmin(): bool
+    {
+        return auth()->check()
+            && in_array(auth()->user()->role, ['superadmin', 'admin', 'moderator']);
+    }
+
     public function mount($slug)
     {
         $this->article = Article::where('slug', $slug)
@@ -96,9 +110,7 @@ class BlogShow extends Component
     {
         $comment = ArticleComment::findOrFail($commentId);
 
-        $isAdmin = in_array(auth()->user()->email, config('blog.admin.emails', []));
-
-        if ($comment->user_id !== auth()->id() && !$isAdmin) {
+        if ($comment->user_id !== auth()->id() && !$this->isAdmin()) {
             return;
         }
 
@@ -108,9 +120,7 @@ class BlogShow extends Component
 
     public function deleteArticle()
     {
-        $isAdmin = in_array(auth()->user()->email, config('blog.admin.emails', []));
-
-        if (!$isAdmin) {
+        if (!$this->isAdmin()) {
             return;
         }
 
