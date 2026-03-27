@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Blog;
 
-use App\Models\Article;
+use App\Models\Blog\Article;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\Layout;
@@ -12,26 +12,29 @@ class BlogHome extends Component
 {
     use WithPagination;
 
-    public $search = '';
+    public string $search   = '';
+    public string $category = '';
 
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
+    public function updatingSearch():   void { $this->resetPage(); }
+    public function updatingCategory(): void { $this->resetPage(); }
 
     public function render()
     {
         $articles = Article::published()
-            ->when($this->search, function ($query) {
-                $query->where(function ($q) {
-                    $q->where('title', 'like', '%' . $this->search . '%')
-                    ->orWhere('metadesc', 'like', '%' . $this->search . '%');
-                });
-            })
-            ->paginate(10);
+            ->when($this->search, fn($q) => $q->where(function($q) {
+                $q->where('title',    'like', '%' . $this->search . '%')
+                  ->orWhere('metadesc', 'like', '%' . $this->search . '%');
+            }))
+            ->when($this->category, fn($q) => $q->inCategory($this->category))
+            ->paginate(config('blog.pagination.per_page', 10));
 
-        return view('laravel-blog::livewire.blog.blog-home', [
-            'articles' => $articles,
+        $categories = config('blog.features.categories', true)
+            ? collect(config('blog.categories', []))->filter()->values()
+            : collect();
+
+        return view('livewire.blog.blog-home', [
+            'articles'   => $articles,
+            'categories' => $categories,
         ])->layoutData([
             'title'       => 'Blog',
             'description' => '',

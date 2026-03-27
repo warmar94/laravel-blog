@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Blog;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -17,6 +17,7 @@ class Article extends Model
         'slug',
         'article',
         'published_at',
+        'category',
     ];
 
     protected $casts = [
@@ -39,7 +40,6 @@ class Article extends Model
     protected static function boot()
     {
         parent::boot();
-
         static::creating(function ($article) {
             if (empty($article->slug)) {
                 $article->slug = Str::slug($article->title);
@@ -52,5 +52,10 @@ class Article extends Model
         return $query->whereNotNull('published_at')
             ->where('published_at', '<=', now())
             ->orderBy('published_at', 'desc');
+    }
+
+    public function scopeInCategory($query, string $category)
+    {
+        return $query->where('category', $category);
     }
 }

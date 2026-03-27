@@ -32,9 +32,9 @@ class LaravelBlogServiceProvider extends ServiceProvider
             ], 'laravel-blog-views');
 
             $this->publishes([
-                __DIR__ . '/app/Livewire' => app_path('Livewire'),
-                __DIR__ . '/app/Models' => app_path('Models'),
-                __DIR__ . '/app/Services' => app_path('Services'),
+                __DIR__ . '/app/Livewire'        => app_path('Livewire'),
+                __DIR__ . '/app/Models/Blog'     => app_path('Models/Blog'),
+                __DIR__ . '/app/Services/Blog'   => app_path('Services/Blog'),
             ], 'laravel-blog-app');
         }
 

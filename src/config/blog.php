@@ -16,7 +16,7 @@ return [
     'admin' => [
         'emails' => [
             // Add admin email addresses here
-            // 'admin@example.com',
+            'admin@example.com',
         ],
     ],
 

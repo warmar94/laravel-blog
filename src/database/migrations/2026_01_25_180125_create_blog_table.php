@@ -10,6 +10,7 @@ return new class extends Migration
     {
         Schema::create('data_articles', function (Blueprint $table) {
             $table->id();
+            $table->string('category', 255)->nullable()->index();
             $table->text('metatitle');
             $table->text('metadesc');
             $table->text('metakeywords');
